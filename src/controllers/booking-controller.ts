@@ -3,6 +3,7 @@ import httpStatus from 'http-status';
 
 import { AuthenticatedRequest } from '@/middlewares';
 import bookingService from '@/services/booking-service';
+import { badRequestError } from '@/errors/bad-request-error';
 
 export async function listBooking(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   try {
@@ -44,6 +45,21 @@ export async function changeBooking(req: AuthenticatedRequest, res: Response, ne
     return res.status(httpStatus.OK).send({
       bookingId: booking.id,
     });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getBookingByRoomId(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  try {
+    const { userId } = req;
+    const { roomId } = req.params;
+
+    if (isNaN(Number(roomId))) throw badRequestError();
+
+    const booking = await bookingService.getBookingRoomById(userId, Number(roomId));
+
+    return res.status(httpStatus.OK).send({ bookings: booking.length });
   } catch (error) {
     next(error);
   }
