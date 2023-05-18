@@ -16,7 +16,26 @@ async function main() {
     });
   }
 
-  console.log({ event });
+  let hotel = await prisma.hotel.findFirst();
+  if (!hotel) {
+    hotel = await prisma.hotel.create({
+      data: {
+        name: "Driven Resort",
+        image: "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/orlandofl/5900_pool_b92df465-0c67-4161-b8bb-67f9fc301094.jpg"
+      }
+    })
+
+    for(let i = 0; i < 20; i++){
+      i < 10 ?
+      (await prisma.room.create({ data: {name: "Simple room", capacity: 1, hotelId: 1}}))
+      : i < 17 ?
+      (await prisma.room.create({ data: {name: "Medium room", capacity: 2, hotelId: 1}}))
+      :
+      (await prisma.room.create({ data: {name: "High room", capacity: 3, hotelId: 1}}))
+    }
+  }
+
+  console.log({ event, hotel });
 }
 
 main()
