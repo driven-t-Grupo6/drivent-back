@@ -23,6 +23,9 @@ async function getTimeByDate(day: Date, userId: number) {
         },
       },
     },
+    orderBy: {
+      startsAt: 'asc',
+    },
   });
 
   return time;

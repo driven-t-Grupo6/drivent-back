@@ -6,7 +6,6 @@ async function findFirst(): Promise<Event> {
   const event = await redis.get('Event');
 
   if (event) {
-    console.log('Cache');
     return JSON.parse(event);
   }
 
