@@ -8,9 +8,7 @@ export async function getActivitiesDates() {
 }
 
 export async function getTimeByDate(day: Date, userId: number) {
-  const time = await activityRepository.getTimeByDate(day, userId);
-  console.log(time);
-  return time;
+  return await activityRepository.getTimeByDate(day, userId);
 }
 
 const activityService = {
