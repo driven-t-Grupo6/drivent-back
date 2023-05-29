@@ -31,6 +31,9 @@ async function getEntryByUserId(userId: number) {
     where: {
       userId,
     },
+    include: {
+      Activity: true,
+    },
   });
 }
 

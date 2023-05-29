@@ -11,6 +11,14 @@ async function findActivitiesDates() {
   return activities;
 }
 
+async function getById(id: number) {
+  const activities = await prisma.activity.findFirst({
+    where: { id },
+  });
+
+  return activities;
+}
+
 async function getTimeByDate(day: Date, userId: number) {
   const time = await prisma.activity.findMany({
     where: {
@@ -33,6 +41,7 @@ async function getTimeByDate(day: Date, userId: number) {
 
 const activityRepository = {
   findActivitiesDates,
+  getById,
   getTimeByDate,
 };
 
