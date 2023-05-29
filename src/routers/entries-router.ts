@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import { authenticateToken } from '@/middlewares';
-import { getEntryByActivityId } from '@/controllers/entries-controller';
+import { getEntryByUserId, getEntryByActivityId, createEntry, deleteEntry } from '@/controllers/entries-controller';
 
 const entriesRouter = Router();
 
-entriesRouter.all('/*', authenticateToken);
-entriesRouter.get('/activity/:activityId', getEntryByActivityId);
+entriesRouter
+  .all('/*', authenticateToken)
+  .get('/user', getEntryByUserId)
+  .get('/activity/:activityId', getEntryByActivityId)
+  .post('/activity/:activityId', createEntry)
+  .delete('/activity/:id', deleteEntry);
 
 export { entriesRouter };
