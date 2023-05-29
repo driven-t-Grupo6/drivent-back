@@ -10,7 +10,7 @@ export async function getEntryByActivityId(req: AuthenticatedRequest, res: Respo
 
     res.send({ entries });
   } catch (error) {
-    next();
+    next(error);
   }
 }
 
@@ -21,7 +21,7 @@ export async function getEntryByUserId(req: AuthenticatedRequest, res: Response,
 
     res.send({ entries });
   } catch (error) {
-    next();
+    next(error);
   }
 }
 
@@ -33,7 +33,7 @@ export async function createEntry(req: AuthenticatedRequest, res: Response, next
 
     res.status(httpStatus.CREATED).send(entry);
   } catch (error) {
-    next();
+    next(error);
   }
 }
 
@@ -45,6 +45,6 @@ export async function deleteEntry(req: AuthenticatedRequest, res: Response, next
 
     res.sendStatus(httpStatus.OK);
   } catch (error) {
-    next();
+    next(error);
   }
 }
